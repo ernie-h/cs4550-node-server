@@ -1,9 +1,30 @@
 var express = require('express')
+var session = require('express-session');
 var app = express()
+var bodyParser = require('body-parser')
+const mongoose = require('mongoose');
 
-var session = require('express-session');
+/*USER-SERVICE*/
+const userService = require('./services/user.service.server');
+userService(app);
 
-var session = require('express-session');
+/*BODY-PARSER*/
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+/*CORS*/
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  next();
+});
+
+/*MONGODB*/
+mongoose.connect('mongodb://localhost/cs4550-summer-2');
+
+/*SESSION*/
 app.use(session({
   resave: false,
   saveUninitialized: true,
@@ -32,38 +53,7 @@ function resetSession(req, res) {
  res.send(200);
 }
 
-// // app.get('/api/session/set/:name/:value', setSession);
-// // app.get('/api/session/get/:name', getSession);
-// //
-// // // setSession = (req, res) => {
-// // //   res.send('hello from set')
-// // // }
-// // //
-// // // getSession = (req, res) => {
-// // //   res.send('get');
-// // // }
-//
-// const mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/cs4550-summer-2');
-//
-// var userSchema = mongoose.Schema({
-//   username: String,
-//   password: String,
-//   firstName: String,
-//   lastName: String,
-// }, {collection: user});
-//
-// var userModel = mongoose.model('UserModel', userSchema);
-//
-// app.get('/api/user', findAllUsers);
-//
-//   function findAllUsers(req, res){
-//     userModel.find()
-//     .then(function(users) {
-//       res.send(users);
-//     })
-//   }
-
+/*REQUESTS*/
 app.get('/api/session/set/:name/:value',
   setSession);
 app.get('/api/session/get/:name',

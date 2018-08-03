@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-example-server",
+  "name": "cs4550-ehao-node-server",
   "version": "1.0.0",
   "description": "Node server for webdev summer2 2018",
   "main": "index.js",
