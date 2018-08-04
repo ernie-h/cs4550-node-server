@@ -1,28 +1,22 @@
-var express = require('express')
+var express = require('express');
 var session = require('express-session');
-var app = express()
-var bodyParser = require('body-parser')
+var app = express();
+var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-/*USER-SERVICE*/
-const userService = require('./services/user.service.server');
-userService(app);
+/*CORS*/
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  next();
+});
+
 
 /*BODY-PARSER*/
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-/*CORS*/
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  next();
-});
-
-/*MONGODB*/
-mongoose.connect('mongodb://localhost/cs4550-summer-2');
 
 /*SESSION*/
 app.use(session({
@@ -30,6 +24,14 @@ app.use(session({
   saveUninitialized: true,
   secret: 'any string'
 }));
+
+/*MONGODB*/
+mongoose.connect('mongodb://localhost/cs4550-summer-2');
+
+/*USER-SERVICE*/
+const userService = require('./services/user.service.server');
+userService(app);
+
 
 function setSession(req, res) {
  var name = req.params['name'];
@@ -50,7 +52,7 @@ function getSessionAll(req, res) {
 
 function resetSession(req, res) {
  req.session.destroy();
- res.send(200);
+ res.sendStatus(200);
 }
 
 /*REQUESTS*/
@@ -63,10 +65,4 @@ app.get('/api/session/get',
 app.get('/api/session/reset',
   resetSession);
 
-app.get('/hello', function(req, res) {
-  res.send({
-    hello: 'hello'
-  })
-})
-
-app.listen(3000)
+  app.listen(3000);
