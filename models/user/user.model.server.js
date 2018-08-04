@@ -7,20 +7,29 @@ findAllUsers = () =>
   userModel.find();
 
 findUserByCredentials = (username, password) =>
-  userModel.findOne({username: username, password: password});
+  userModel.findOne({
+    username: username,
+    password: password
+  });
+
+findUserByUsername = (username) =>
+  userModel.findOne({
+    username: username,
+  });
+
 
 findUserById = userId =>
   userModel.findById(userId)
 
 findUserByIdExpanded = userId =>
-  userModel
-    .findById(userId)
-    .populate('sections')
-    .exec()
+  userModel.findById(userId)
+  .populate('sections').exec();
+
 
 module.exports = {
   findUserByIdExpanded,
   findUserById,
   findAllUsers,
-  findUserByCredentials
+  findUserByCredentials,
+  findUserByUsername
 };
