@@ -4,23 +4,20 @@ module.exports = (app) => {
   var userModel = require('../models/user/user.model.server');
 
   function register(req, res) {
+    console.log(req.body)
     var username = req.body.username;
-    var password = req.body.password;
-    var newUser = {
-      username: username,
-      password: password
-    };
-    userModel.findUserByUsername(username).then(function(user) {
+    userModel.findUserByUsername(username)
+    .then((user) => {
         if (!user) {
           return userModel
-            .createUser(newUser);
+            .createUser(req.body);
         } else {
-          return alert('Username already exists. Pick a new one.');
+          return res.sendStatus(404);
         }
       })
-      .then(function(user) {
+      .then((user) => {
         req.session['currentUser'] = user;
-        res.send(user);
+        res.sendStatus(200);
       });
   }
 

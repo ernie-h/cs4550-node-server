@@ -17,7 +17,6 @@ findUserByUsername = (username) =>
     username: username,
   });
 
-
 findUserById = userId =>
   userModel.findById(userId)
 
@@ -25,11 +24,15 @@ findUserByIdExpanded = userId =>
   userModel.findById(userId)
   .populate('sections').exec();
 
+createUser = (user) =>
+  userModel.create(user);
+
 
 module.exports = {
   findUserByIdExpanded,
   findUserById,
   findAllUsers,
   findUserByCredentials,
-  findUserByUsername
+  findUserByUsername,
+  createUser
 };
