@@ -32,6 +32,10 @@ mongoose.connect('mongodb://localhost/cs4550-summer-2');
 const userService = require('./services/user.service.server');
 userService(app);
 
+/*SECTION-SERVICE*/
+const sectionService = require('./services/section.service.server');
+sectionService(app);
+
 
 function setSession(req, res) {
  var name = req.params['name'];
