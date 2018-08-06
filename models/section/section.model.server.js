@@ -16,15 +16,27 @@ findAllSectionsForCourse = courseId =>
 
 enroll = (userId, sectionId) =>
   userModel.findUserById(userId)
-  .then(user => {
+  .then((user) => {
     user.sections.push(sectionId);
-    return user.save();
+    user.save();
   })
+
 createSection = section =>
   sectionModel.create(section);
 
 deleteSection = (sectionId) =>
-  sectionModel.deleteOne({_id:  sectionId});
+  sectionModel.deleteOne({
+    _id: sectionId
+  });
+
+updateSectionEnroll = (sectionId) =>
+  sectionModel.update({
+    _id: sectionId
+  }, {
+    $inc: {
+      seats: -1
+    }
+  });
 
 module.exports = {
   enroll,
@@ -32,4 +44,5 @@ module.exports = {
   findAllSectionsForCourse,
   createSection,
   deleteSection,
+  updateSectionEnroll,
 };
