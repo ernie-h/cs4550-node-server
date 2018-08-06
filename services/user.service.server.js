@@ -4,7 +4,6 @@ module.exports = (app) => {
   var userModel = require('../models/user/user.model.server');
 
   function register(req, res) {
-    console.log(req.body)
     var username = req.body.username;
     userModel.findUserByUsername(username)
     .then((user) => {
