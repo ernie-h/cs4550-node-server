@@ -11,11 +11,27 @@ module.exports = app => {
     sectionModel.findAllSectionsForCourse(req.params['courseId'])
       .then(sections => res.send(sections))
   );
-  app.put('/api/section/:sectionId/enroll', (req, res) => {
-    const currentUser = req.session['currentUser'];
-    sectionModel.enroll(currentUser._id, req.params['sectionId'])
-    .then(status => res.sendStatus(status));
+  app.put('/api/student/:userId/section/:sectionId', (req, res) => {
+    sectionModel.enroll(req.params['userId'], req.params['sectionId'])
+    .then(response =>
+      res.send(response))
+
   });
+  app.put('/api/section/:sectionId', (req, res) => {
+    sectionModel.updateSectionEnroll(req.params['sectionId'])
+    .then(response =>
+      res.send(response));
+
+  });
+  // sectionModel
+  // .decrementSectionSeats(sectionId)
+  // .then(function () {
+  //   return enrollmentModel
+  //     .enrollStudentInSection(enrollment)
+  // })
+  // .then(function (enrollment) {
+  //   res.json(enrollment);
+  // }))
 
   app.post('/api/section', (req, res) =>
     sectionModel.createSection(req.body)
