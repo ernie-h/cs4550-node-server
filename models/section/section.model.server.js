@@ -17,23 +17,6 @@ findAllSectionsForCourse = courseId =>
     courseId: courseId
   });
 
-findSectionsForStudent = userId => {
-  userModel.findSectionsForStudent(userId)
-
-  // findUserById(userId)
-  // .populate('sections.Section').exec();
-  // console.log(user)
-  // //user.populate('sections.Section');
-  // console.log(user);
-}
-
-// function findSectionsForStudent(studentId) {
-//   return enrollmentModel
-//     .find({student: studentId})
-//     .populate('section')
-//     .exec();
-// }
-
 enroll = (userId, sectionId) =>
   userModel.findUserById(userId)
   .then((user) => {
