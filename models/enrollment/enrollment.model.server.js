@@ -8,7 +8,11 @@ var enrollmentModel = mongoose.model(
 enroll = (enrollment) =>
   enrollmentModel.create(enrollment);
 
-
+unenroll = (userId, sectionId) =>
+enrollmentModel.deleteOne({
+  section: sectionId,
+  student: userId,
+})
 
 findSectionsForStudent = (studentId) => {
   return enrollmentModel
@@ -21,5 +25,6 @@ findSectionsForStudent = (studentId) => {
 
 module.exports = {
   enroll,
+  unenroll,
   findSectionsForStudent,
 };

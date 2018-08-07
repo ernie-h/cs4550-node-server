@@ -13,6 +13,25 @@ module.exports = app => {
 
   });
 
+  app.delete('/api/student/:userId/section/:sectionId', (req, res) => {
+    enrollmentModel.unenroll(req.params['userId'],req.params['sectionId'] )
+      .then(response =>
+        res.send(response));
+
+  });
+
+  app.put('/api/section/:sectionId', (req, res) => {
+    sectionModel.updateSectionEnroll(req.params['sectionId'])
+      .then(response =>
+        res.send(response));
+  });
+
+  app.put('/api/section/:sectionId', (req, res) => {
+    sectionModel.updateSectionUnenroll(req.params['sectionId'])
+      .then(response =>
+        res.send(response));
+  });
+
   app.get('/api/student/:userId/section', (req, res) =>
     enrollmentModel.findSectionsForStudent(req.params['userId'])
     .then((response) => {
@@ -30,12 +49,6 @@ module.exports = app => {
     .then(sections => res.send(sections))
   );
 
-  app.put('/api/section/:sectionId', (req, res) => {
-    sectionModel.updateSectionEnroll(req.params['sectionId'])
-      .then(response =>
-        res.send(response));
-  });
-
   app.post('/api/section', (req, res) =>
     sectionModel.createSection(req.body)
     .then(section => res.send(section))
@@ -45,6 +58,4 @@ module.exports = app => {
     sectionModel.deleteSection(req.params['sectionId'])
     .then(response => res.send(response))
   );
-
-
 };

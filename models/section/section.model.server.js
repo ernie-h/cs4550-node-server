@@ -3,7 +3,23 @@ const sectionSchema = require('./section.schema.server');
 const sectionModel = mongoose.model('SectionModel', sectionSchema);
 const userModel = require('../user/user.model.server');
 
+updateSectionEnroll = (sectionId) =>
+sectionModel.update({
+  _id: sectionId
+}, {
+  $inc: {
+    seats: -1
+  }
+});
 
+updateSectionUnenroll = (sectionId) =>
+sectionModel.update({
+  _id: sectionId
+}, {
+  $inc: {
+    seats: 1
+  }
+});
 
 findAllSections = () =>
   sectionModel.find();
@@ -17,13 +33,6 @@ findAllSectionsForCourse = courseId =>
     courseId: courseId
   });
 
-enroll = (userId, sectionId) =>
-  userModel.findUserById(userId)
-  .then((user) => {
-    user.sections.push(sectionId);
-    user.save();
-  })
-
 createSection = section =>
   sectionModel.create(section);
 
@@ -32,22 +41,13 @@ deleteSection = (sectionId) =>
     _id: sectionId
   });
 
-updateSectionEnroll = (sectionId) =>
-  sectionModel.update({
-    _id: sectionId
-  }, {
-    $inc: {
-      seats: -1
-    }
-  });
 
 module.exports = {
-  enroll,
+  updateSectionEnroll,
+  updateSectionUnenroll,
   findAllSections,
   findSection,
   findAllSectionsForCourse,
-  findSectionsForStudent,
   createSection,
   deleteSection,
-  updateSectionEnroll,
 };

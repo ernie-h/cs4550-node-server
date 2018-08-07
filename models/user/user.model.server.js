@@ -24,7 +24,6 @@ createUser = (user) =>
 
 
 module.exports = {
-  findSectionsForStudent,
   findUserById,
   findAllUsers,
   findUserByCredentials,
