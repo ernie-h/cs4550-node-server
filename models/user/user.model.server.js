@@ -19,12 +19,6 @@ findUserByUsername = (username) =>
 findUserById = userId =>
   userModel.findById(userId)
 
-findSectionsForStudent = userId =>{
-  userModel.findById(userId)
-  .populate('SectionModel')
-  .exec();
-};
-
 createUser = (user) =>
   userModel.create(user);
 

@@ -13,6 +13,13 @@ module.exports = app => {
 
   });
 
+  app.get('/api/student/:userId/section', (req, res) =>
+    enrollmentModel.findSectionsForStudent(req.params['userId'])
+    .then((response) => {
+      res.send(response);
+    })
+  );
+
   app.get('/api/section', (req, res) =>
     sectionModel.findAllSections()
     .then(sections => res.send(sections))
@@ -27,7 +34,6 @@ module.exports = app => {
     sectionModel.updateSectionEnroll(req.params['sectionId'])
       .then(response =>
         res.send(response));
-
   });
 
   app.post('/api/section', (req, res) =>
@@ -40,10 +46,5 @@ module.exports = app => {
     .then(response => res.send(response))
   );
 
-  app.get('/api/student/:userId/section', (req, res) =>
-    enrollmentModel.findSectionsForStudent(req.params['userId'])
-    .then((response) => {
-      res.send(response);
-    })
-  );
+
 };
