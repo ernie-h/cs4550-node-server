@@ -5,18 +5,21 @@ var enrollmentModel = mongoose.model(
   enrollmentSchema
 );
 
-function enrollStudentInSection(enrollment) {
-  return enrollmentModel.create(enrollment);
-}
+enroll = (enrollment) =>
+  enrollmentModel.create(enrollment);
 
-function findSectionsForStudent(studentId) {
+
+
+findSectionsForStudent = (studentId) => {
   return enrollmentModel
-    .find({student: studentId})
+    .find({
+      student: studentId
+    })
     .populate('section')
     .exec();
 }
 
 module.exports = {
-  enrollStudentInSection: enrollStudentInSection,
-  findSectionsForStudent: findSectionsForStudent
+  enroll,
+  findSectionsForStudent,
 };
