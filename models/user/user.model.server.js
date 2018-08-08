@@ -22,11 +22,25 @@ findUserById = userId =>
 createUser = (user) =>
   userModel.create(user);
 
+updateUser = (newUser) =>
+  userModel.update({
+    _id: newUser._id
+  }, {
+    $set: {
+      username: newUser.username,
+      password: newUser.password,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      phone: newUser.phone,
+      dateOfBirth: newUser.dateOfBirth
+    }
+  });
 
 module.exports = {
   findUserById,
   findAllUsers,
   findUserByCredentials,
   findUserByUsername,
-  createUser
+  createUser,
+  updateUser
 };

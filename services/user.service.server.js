@@ -1,6 +1,4 @@
 module.exports = (app) => {
-
-
   var userModel = require('../models/user/user.model.server');
 
   function register(req, res) {
@@ -63,7 +61,14 @@ module.exports = (app) => {
     }
   }
 
-  app.get('/currentUser', currentUser);
+    function updateUser(req, res) {
+      userModel.updateUser(req.body)
+      .then(user => {
+        res.send(user);
+      });
+    }
+  app.put('/api/profile', updateUser);
+  app.get('/api/profile', currentUser);
   app.get('/api/user', findAllUsers);
   app.post('/api/login', login);
   app.post('/api/register', register);
