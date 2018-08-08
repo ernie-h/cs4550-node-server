@@ -69,4 +69,5 @@ app.get('/api/session/get',
 app.get('/api/session/reset',
   resetSession);
 
-  app.listen(3000);
+  // app.listen(3000);
+  app.listen(process.env.PORT || 3000);
