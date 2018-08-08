@@ -26,7 +26,7 @@ module.exports = app => {
         res.send(response));
   });
 
-  app.put('/api/section/:sectionId', (req, res) => {
+  app.put('/api/section/:sectionId/unenroll', (req, res) => {
     sectionModel.updateSectionUnenroll(req.params['sectionId'])
       .then(response =>
         res.send(response));
