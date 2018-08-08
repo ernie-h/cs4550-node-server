@@ -26,7 +26,7 @@ app.use(session({
 }));
 
 /*MONGODB*/
-mongoose.connect('mongodb://localhost/cs4550-summer-2');
+mongoose.connect('mongodb://eh:cs4550@ds123129.mlab.com:23129/eh-cs4550');
 
 /*USER-SERVICE*/
 const userService = require('./services/user.service.server');
