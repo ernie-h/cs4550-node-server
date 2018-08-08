@@ -1,5 +1,7 @@
 var express = require('express');
 var session = require('express-session');
+const path = require('path');
+
 var app = express();
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -69,5 +71,9 @@ app.get('/api/session/get',
 app.get('/api/session/reset',
   resetSession);
 
+  app.get('/*', function(req,res) {
+
+  res.sendFile(path.join(__dirname,'/dist/cs4550-ehao-angular-client/index.html'));
+  });
   // app.listen(3000);
   app.listen(process.env.PORT || 3000);
