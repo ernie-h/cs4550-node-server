@@ -7,8 +7,9 @@ var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 /*CORS*/
+// https://eh-angular-client.herokuapp.com
 app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'https://eh-angular-client.herokuapp.com');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -28,8 +29,8 @@ app.use(session({
 }));
 
 /*MONGODB*/
-mongoose.connect('mongodb://eh:cs4550@ds123129.mlab.com:23129/eh-cs4550');
-
+// 'mongodb://eh:cs4550@ds123129.mlab.com:23129/eh-cs4550'
+mongoose.connect('mongodb://localhost/cs4550-summer-2');
 /*USER-SERVICE*/
 const userService = require('./services/user.service.server');
 userService(app);
@@ -37,7 +38,9 @@ userService(app);
 /*SECTION-SERVICE*/
 const sectionService = require('./services/section.service.server');
 sectionService(app);
-
+/*QUIZ-SERVICE*/
+const quizService = require('./services/quiz.service.server');
+quizService(app);
 
 function setSession(req, res) {
  var name = req.params['name'];
