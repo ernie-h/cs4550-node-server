@@ -42,6 +42,10 @@ sectionService(app);
 const quizService = require('./services/quiz.service.server');
 quizService(app);
 
+/*QUESTION-SERVICE*/
+const questionService = require('./services/question.service.server');
+questionService(app);
+
 function setSession(req, res) {
  var name = req.params['name'];
  var value = req.params['value'];
