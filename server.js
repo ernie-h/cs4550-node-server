@@ -46,6 +46,10 @@ quizService(app);
 const questionService = require('./services/question.service.server');
 questionService(app);
 
+/*SUBMISSION-SERVICE*/
+const submissionService = require('./services/submission.service.server');
+submissionService(app);
+
 function setSession(req, res) {
  var name = req.params['name'];
  var value = req.params['value'];
