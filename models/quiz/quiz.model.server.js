@@ -23,7 +23,7 @@ findAllQuiz = () =>
 findQuizById = (quizId) =>
   quizModel.findById(quizId)
   .populate('questions')
-  .exec()
+  .exec();
 
 addQuestion = (quizId, questionId) =>
   quizModel.update({
