@@ -16,7 +16,10 @@ const findAllSubmissionsForStudent = studentId =>
 const findAllSubmissionsForQuiz = quizId =>
     submissionModel.find({
         quiz: quizId
-    });
+    })
+    .populate('student')
+    .populate('quiz')
+    .exec();
 
 module.exports = {
     submitQuiz,
