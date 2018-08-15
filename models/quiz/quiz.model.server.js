@@ -2,37 +2,37 @@ const mongoose = require('mongoose');
 const quizSchema = require('./quiz.schema.server');
 const quizModel = mongoose.model('QuizModel', quizSchema);
 
-createQuiz = (quiz) =>
+const createQuiz = (quiz) =>
   quizModel.create(quiz);
 
-updateQuiz = (quizId, newQuiz) =>
+const updateQuiz = (quizId, newQuiz) =>
   quizModel.update({
     _id: quizId
   }, {
     $set: newQuiz
-  })
+  });
 
-deleteQuiz = (quizId) =>
+const deleteQuiz = (quizId) =>
   quizModel.remove({
     _id: quizId
-  })
+  });
 
-findAllQuiz = () =>
-  quizModel.find()
+const findAllQuiz = () =>
+  quizModel.find();
 
-findQuizById = (quizId) =>
+const findQuizById = (quizId) =>
   quizModel.findById(quizId)
   .populate('questions')
   .exec();
 
-addQuestion = (quizId, questionId) =>
+const addQuestion = (quizId, questionId) =>
   quizModel.update({
     _id: quizId
   }, {
     $push: {
       questions: questionId
     }
-  })
+  });
 
 module.exports = {
   createQuiz,
@@ -41,4 +41,4 @@ module.exports = {
   addQuestion,
   findAllQuiz,
   findQuizById,
-}
+};
