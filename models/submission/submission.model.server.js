@@ -17,8 +17,13 @@ const findAllSubmissionsForQuiz = quizId =>
     submissionModel.find({
         quiz: quizId
     })
+    .populate({
+        path: 'quiz',
+        populate: {
+            path: 'questions'
+        }
+    })
     .populate('student')
-    .populate('quiz')
     .exec();
 
 module.exports = {
