@@ -9,7 +9,7 @@ module.exports = mongoose.Schema({
         ref: 'QuizModel'
     },
     answers: [{
-        fillBlanksAnswers: Object,
+        fillBlanksAnswers: String,
         multipleChoiceAnswer: Number,
         trueFalseAnswer: Boolean,
         essayAnswer: String,
