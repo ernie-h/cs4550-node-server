@@ -14,7 +14,7 @@ module.exports = app => {
             .then(submissions => res.send(submissions));
     });
     app.get('/api/quiz/:quizId/submission/:submissionId', (req, res) => {
-        submissionModel.findSubmission(req.params['quizId'], req.params['submissionId'])
+        submissionModel.findSubmissionById(req.params['quizId'], req.params['submissionId'])
             .then(submission => res.send(submission));
     });
 };
